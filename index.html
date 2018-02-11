@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Reataurant Babuska</title>
+	<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+	<!-- dette er modalvinduet -->
+	<!--knappen er lagt i den yderste div, og fungerer på den måde at når man trykker udenfor popup_content billedet lukker det -->
+	<div id="popup"><button class="knap" data-button></button>
+		<div id="popup_content">
+			<h3 class="single_title" data-titel>test</h3>
+			<div class="single_info">
+				<img src="" alt="" class="single_img" data-singleImg>
+				<details class="beskrivelse" open>
+					<summary>Beskrivelse</summary>
+					<p data-beskrivelse>lang tekst</p>
+					<p data-pris>pris</p>
+				</details>
+			</div>
+		</div>
+
+	</div>
+
+	<header>
+		<h1>Bistro Babushka</h1>
+		<h2>- Russisk take away</h2>
+		<div class="burger_menu">
+			<button class="burger">
+			<div class="bar1"></div>
+			<div class="bar2"></div>
+			<div class="bar3"></div>
+			</button>
+			<nav>
+				<button class="nav_knap" id="filter-alle">Alle</button>
+				<button class="nav_knap" id="filter-forretter">Forretter</button>
+				<button class="nav_knap" id="filter-hovedretter">Hovedretter</button>
+				<button class="nav_knap" id="filter-sideorders">Sideorders</button>
+				<button class="nav_knap" id="filter-desserter">Desserter</button>
+				<button class="nav_knap" id="filter-drikkevarer">Drikkevarer</button>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<h3 data-overskrift>Menu</h3>
+		<!-- dette er destinationen for de retter som bliver klonet fra nedenstående template-->
+		<section id="liste" data-liste>
+		</section>
+	</main>
+	<template class="rettemplate" data-rettemplate>
+		<article class="ret" data-ret>
+			<h4 class="navn" data-navn></h4>
+			<img class="billede" src="" alt="" data-billede>
+			<p class="kortbeskrivelse" data-kortbeskrivelse></p>
+			<p class="pris" data-pris></p>
+		</article>
+	</template>
+
+	<footer>
+		<section class="om">
+			<address class="info">
+			Bistro Babushka <br>Moskvagade 18<br>1060 København K<br>
+			</address>
+			<div class="hours">
+				Åbningstider: <br>Mandag - Fredag: 10.30 - 22.00 <br> Lørdag: 12.00 - 23.00 <br> Søndag: Lukket</div>
+		</section>
+	</footer>
+	<script src="javascript.js">
+	</script>
+</body>
+
+</html>
