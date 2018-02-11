@@ -127,9 +127,10 @@ nav.show {
 	transform: rotate(45deg) translate(-9px, -8px);
 }
 
+/* opacity sat til 0, ændres i js til 1 så article er synlig */
+
 article {
 	opacity: 0;
-	transition: all 1s;
 }
 
 /* Modalvindue */

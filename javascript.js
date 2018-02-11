@@ -1,17 +1,33 @@
 //de skarpe parenterser i variablen viser at det er et array
 let retter = [];
-
+let aktuelKategori = "Menu";
 document.addEventListener("DOMContentLoaded", hentJson);
 
 //funktion som henter Json filen
 async function hentJson() {
 	let jsonData = await fetch("menu.json");
 	retter = await jsonData.json();
-	vis(retter, "Menu");
-	lavFilter();
+	visRetter(retter, "Menu");
+	//lavFilter();
+
+	//find tekst på klikket knap
+	document.querySelector("nav").addEventListener("click", () => {
+		// sæt variabel til indhold på knappen i små bogstaver
+		let kategori = event.target.textContent.toLowerCase();
+		console.log(kategori);
+
+		// hvis kategori er forskellig fra alle, skal kat være retter filreret efter ret.kategori
+		if (kategori != "alle") {
+			let kat = retter.filter(ret => ret.kategori == kategori);
+			visRetter(kat, kategori);
+
+		} else {
+			visRetter(retter, kategori);
+		}
+	})
 }
 
-function vis(retter, overskrift) {
+function visRetter(retter, overskrift) {
 	console.log("vis retter");
 	let temp = document.querySelector("[data-rettemplate]");
 	let dest = document.querySelector("[data-liste]");
@@ -33,10 +49,11 @@ function vis(retter, overskrift) {
 		});
 		dest.appendChild(klon);
 	})
-	//fade ind og ud
+	//fade in på article
 	document.querySelectorAll("article").forEach(a => {
 		a.getBoundingClientRect(); // kun hvis det ikke virker uden
 		a.style.transition = "all 1s";
+		//ændre opacity fra 0 til 1
 		a.style.opacity = "1";
 	})
 }
@@ -58,7 +75,7 @@ function closeModal() {
 	document.querySelector("#popup").style.opacity = "0";
 
 }
-
+// knapper med forskellige kategorier
 function lavFilter() {
 	console.log("filter");
 	let forretter = retter.filter(ret => ret.kategori == "forretter");
@@ -69,28 +86,51 @@ function lavFilter() {
 
 	//sorter retter efter kategori
 	document.querySelector("#filter-alle").addEventListener("click", () => {
-		vis(retter, "Menu");
+		visRetter(retter, "Menu");
 	});
 	document.querySelector("#filter-forretter").addEventListener("click", () => {
-		vis(forretter, "Forretter");
+		visRetter(forretter, "Forretter");
 	});
 	document.querySelector("#filter-hovedretter").addEventListener("click", () => {
-		vis(hovedretter, "Hovedretter");
+		visRetter(hovedretter, "Hovedretter");
 	});
 	document.querySelector("#filter-sideorders").addEventListener("click", () => {
-		vis(sideorders, "Sideorders");
+		visRetter(sideorders, "Sideorders");
 	});
 	document.querySelector("#filter-desserter").addEventListener("click", () => {
-		vis(desserter, "Desserter");
+		visRetter(desserter, "Desserter");
 	});
 	document.querySelector("#filter-drikkevarer	").addEventListener("click", () => {
-		vis(drikkevarer, "Drikkevarer");
+		visRetter(drikkevarer, "Drikkevarer");
 	});
 }
-
+//burgermenu
 function toggleMenu() {
 	document.querySelector(".burger").classList.toggle("change");
 	document.querySelector("nav").classList.toggle("show");
 }
 document.querySelector(".burger").addEventListener("click", toggleMenu);
 document.querySelector("nav").addEventListener("click", toggleMenu);
+
+
+//sortering radioknapper
+document.querySelector(".radio_alpha").addEventListener("change", radioAlpha);
+
+function radioAlpha() {
+	retter.sort((a, b) => a.navn.localeCompare(b.navn));
+	visRetter(retter, aktuelKategori);
+}
+
+document.querySelector(".radio_pris_op").addEventListener("change", radioPrisOp);
+
+function radioPrisOp() {
+	retter.sort((a, b) => a.pris - b.pris);
+	visRetter(retter, aktuelKategori);
+}
+
+document.querySelector(".radio_pris_ned").addEventListener("change", radioPrisNed);
+
+function radioPrisNed() {
+	retter.sort((a, b) => b.pris - a.pris);
+	visRetter(retter, aktuelKategori);
+}
