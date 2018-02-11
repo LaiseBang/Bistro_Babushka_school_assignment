@@ -8,7 +8,6 @@ async function hentJson() {
 	let jsonData = await fetch("menu.json");
 	retter = await jsonData.json();
 	visRetter(retter, "Menu");
-	//lavFilter();
 
 	//find tekst på klikket knap
 	document.querySelector("nav").addEventListener("click", () => {
@@ -45,7 +44,6 @@ function visRetter(retter, overskrift) {
 		klon.querySelector("[data-pris]").textContent = ret.pris + ",- kr";
 		klon.querySelector("[data-ret]").addEventListener("click", () => {
 			visModal(ret)
-
 		});
 		dest.appendChild(klon);
 	})
@@ -73,37 +71,8 @@ function closeModal() {
 	console.log("luk modal funktion");
 	document.querySelector("#popup").style.pointerEvents = "none"; // slå mus fra
 	document.querySelector("#popup").style.opacity = "0";
-
 }
-// knapper med forskellige kategorier
-function lavFilter() {
-	console.log("filter");
-	let forretter = retter.filter(ret => ret.kategori == "forretter");
-	let hovedretter = retter.filter(ret => ret.kategori == "hovedretter");
-	let sideorders = retter.filter(ret => ret.kategori == "sideorders");
-	let desserter = retter.filter(ret => ret.kategori == "desserter");
-	let drikkevarer = retter.filter(ret => ret.kategori == "drikkevarer");
 
-	//sorter retter efter kategori
-	document.querySelector("#filter-alle").addEventListener("click", () => {
-		visRetter(retter, "Menu");
-	});
-	document.querySelector("#filter-forretter").addEventListener("click", () => {
-		visRetter(forretter, "Forretter");
-	});
-	document.querySelector("#filter-hovedretter").addEventListener("click", () => {
-		visRetter(hovedretter, "Hovedretter");
-	});
-	document.querySelector("#filter-sideorders").addEventListener("click", () => {
-		visRetter(sideorders, "Sideorders");
-	});
-	document.querySelector("#filter-desserter").addEventListener("click", () => {
-		visRetter(desserter, "Desserter");
-	});
-	document.querySelector("#filter-drikkevarer	").addEventListener("click", () => {
-		visRetter(drikkevarer, "Drikkevarer");
-	});
-}
 //burgermenu
 function toggleMenu() {
 	document.querySelector(".burger").classList.toggle("change");
